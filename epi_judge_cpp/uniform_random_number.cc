@@ -16,8 +16,15 @@ int ZeroOneRandom() {
 }
 
 int UniformRandom(int lower_bound, int upper_bound) {
-  // TODO - you fill in here.
-  return 0;
+  int t = upper_bound - lower_bound + 1;
+  int result = 0;
+  do {
+    result = 0;
+    for(int i = 0; (1 << i) < t; ++i) {
+      result |= ZeroOneRandom() << i;
+    }
+  } while(result >= t);
+  return result;
 }
 bool UniformRandomRunner(TimedExecutor& executor, int lower_bound,
                          int upper_bound) {

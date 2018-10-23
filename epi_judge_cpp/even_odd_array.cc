@@ -4,10 +4,20 @@
 #include "test_framework/test_failure.h"
 #include "test_framework/timed_executor.h"
 using std::vector;
+using std::swap;
 
 void EvenOdd(vector<int>* A_ptr) {
-  // TODO - you fill in here.
-  return;
+  vector<int>& tab = *A_ptr;
+  int last = tab.size() - 1;
+  int i = 0;
+  while(i < last) {
+    if(tab[i] % 2) {
+      swap(tab[i], tab[last--]);
+    }
+    else {
+      i++;
+    }
+  }
 }
 void EvenOddWrapper(TimedExecutor& executor, vector<int> A) {
   std::multiset<int> before(begin(A), end(A));
