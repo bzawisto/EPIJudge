@@ -2,8 +2,24 @@
 #include "test_framework/generic_test.h"
 using std::vector;
 double BuyAndSellStockTwice(const vector<double>& prices) {
-  // TODO - you fill in here.
-  return 0.0;
+  if(prices.empty()) return 0.0;
+
+  vector<double> profits(prices.size(), 0.0);
+  double maxProfit = 0.0;
+  double minVal = std::numeric_limits<double>::max();
+  int i = 0;
+  for(auto p : prices) {
+    minVal = std::min(minVal, p);
+    maxProfit = std::max(maxProfit, p - minVal);
+    profits[i++] = maxProfit;
+  }
+  double maxPrice = std::numeric_limits<double>::min();
+
+  for(i = prices.size() - 1; i > 0; --i) {
+    maxPrice = std::max(maxPrice, prices[i]);
+    maxProfit = std::max(maxProfit, maxPrice - prices[i] + profits[i-1]);
+  }
+  return maxProfit;
 }
 
 int main(int argc, char* argv[]) {

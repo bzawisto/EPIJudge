@@ -1,9 +1,19 @@
 #include <vector>
 #include "test_framework/generic_test.h"
 using std::vector;
+
 vector<int> PlusOne(vector<int> A) {
-  // TODO - you fill in here.
-  return {};
+  vector<int> retVal;
+  int carry = 0;
+  for(int i = A.size() - 1; i >= 0; --i) {
+    int sum = A[i] + carry;
+    if(i == A.size() - 1) sum++;
+    retVal.push_back(sum % 10);
+    carry = sum / 10;
+  }
+  if(carry) retVal.push_back(carry);
+  std::reverse(retVal.begin(), retVal.end());
+  return retVal;
 }
 
 int main(int argc, char* argv[]) {
